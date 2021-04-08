@@ -77,30 +77,68 @@ sub2POST_EEG = [post1; post2];
 sub2POST_TYP = [typ1; typ2];
 sub2POST_POS = [pos1; pos2];
 
-%% make a lil graph
+%% remove mean
+sub1PRE_EEG = sub1PRE_EEG - mean(sub1PRE_EEG);
+sub2PRE_EEG = sub2PRE_EEG - mean(sub2PRE_EEG);
+sub1POST_EEG = sub1POST_EEG - mean(sub1POST_EEG); 
+sub2POST_EEG = sub2POST_EEG - mean(sub2POST_EEG);
+
+%% 3 tasks all channels
 sub1PRE_TYP(20:21)
-s = 2;
-e = 6;
+
 
 figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
+
+s = 12;
+e = 16;
+subplot(3,1,1)
 hold on
 plot((sub1PRE_POS(s):sub1PRE_POS(e))./fs, sub1PRE_EEG(sub1PRE_POS(s):sub1PRE_POS(e), :));
-stem(sub1PRE_POS(s:e)/fs, sub1PRE_TYP(s:e));
+stem(sub1PRE_POS(s:e)/fs, sub1PRE_TYP(s:e), 'filled');
 xlabel('Seconds');
 % legend(channels);
-% title('Subject-1 Run-1 Trial-1');
+title('Subject-1 FLX');
 hold off
 
-%% 2.1.2
+s = 7;
+e = 11;
+subplot(3,1,2)
+hold on
+plot((sub1PRE_POS(s):sub1PRE_POS(e))./fs, sub1PRE_EEG(sub1PRE_POS(s):sub1PRE_POS(e), :));
+stem(sub1PRE_POS(s:e)/fs, sub1PRE_TYP(s:e), 'filled');
+xlabel('Seconds');
+% legend(channels);
+title('Subject-1 REST');
+hold off
+
+s = 17;
+e = 21;
+subplot(3,1,3)
+hold on
+plot((sub1PRE_POS(s):sub1PRE_POS(e))./fs, sub1PRE_EEG(sub1PRE_POS(s):sub1PRE_POS(e), :));
+stem(sub1PRE_POS(s:e)/fs, sub1PRE_TYP(s:e), 'filled');
+xlabel('Seconds');
+% legend(channels);
+title('Subject-1 EXT');
+hold off
+%% PSD
 h = spectrum.welch; % creates the Welch spectrum estimator
 flx = psd(h,sub1PRE_EEG(sub1PRE_POS(5):sub1PRE_POS(6), :),'Fs',fs); 
 rest = psd(h,sub1PRE_EEG(sub1PRE_POS(10):sub1PRE_POS(11), :),'Fs',fs);
 ext = psd(h,sub1PRE_EEG(sub1PRE_POS(20):sub1PRE_POS(21), :),'Fs',fs);
 figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
-hold on
-% plot(flx);
-% plot(rest);
+
+subplot(3,1,1)
+title('FLX');
+plot(flx);
+subplot(3,1,2)
+title('EXT');
 plot(ext);
+subplot(3,1,3)
+title('REST');
+plot(rest);
+% plot(rest);
+% plot(ext);
 % temp =get(gca);
 % temp.Children(1).Color = 'r'; %rest
 % temp.Children(2).Color = 'b'; %flx_dist
