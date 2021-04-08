@@ -2,10 +2,6 @@ clear
 close all
 clc
 
-Ext = 100;
-Flx = 300;
-Rest = 400;
-
 %% build inital Datasets
 load p3_subjectData.mat;
 
@@ -77,8 +73,9 @@ sub2POST_EEG = [post1; post2];
 sub2POST_TYP = [typ1; typ2];
 sub2POST_POS = [pos1; pos2];
 
-%% make a lil graph
-sub1PRE_TYP(20:21)
+%% 
+
+sub1PRE_TYP(1:21)
 s = 2;
 e = 6;
 
@@ -93,17 +90,22 @@ hold off
 
 %% 2.1.2
 h = spectrum.welch; % creates the Welch spectrum estimator
-flx = psd(h,sub1PRE_EEG(sub1PRE_POS(5):sub1PRE_POS(6), :),'Fs',fs); 
-rest = psd(h,sub1PRE_EEG(sub1PRE_POS(10):sub1PRE_POS(11), :),'Fs',fs);
-ext = psd(h,sub1PRE_EEG(sub1PRE_POS(20):sub1PRE_POS(21), :),'Fs',fs);
+
+% ext_prox=psd(h,emg(time(4):time(5), 1),'Fs',fs);
+% ext_dist=psd(h,emg(time(4):time(5), 2),'Fs',fs);
+% flx_prox=psd(h,emg(time(4):time(5), 3),'Fs',fs);
+flx_dist=psd(h,emg(time(5):time(6), 4),'Fs',fs); 
+rest = psd(h,emg(time(2):time(3), 4),'Fs',fs);
 figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
 hold on
-% plot(flx);
-% plot(rest);
-plot(ext);
-% temp =get(gca);
-% temp.Children(1).Color = 'r'; %rest
-% temp.Children(2).Color = 'b'; %flx_dist
+% plot(ext_prox);
+% plot(ext_dist);
+% plot(flx_prox);
+plot(flx_dist);
+plot(rest);
+temp =get(gca);
+temp.Children(1).Color = 'r'; %rest
+temp.Children(2).Color = 'b'; %flx_dist
 hold off
-% legend( 'Distal Flexor', 'Rest');
+legend( 'Distal Flexor', 'Rest');
 
