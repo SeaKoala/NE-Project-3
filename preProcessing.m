@@ -86,7 +86,11 @@ sub2POST_TYP = [typ1; typ2];
 sub2POST_POS = [pos1; pos2];
 
 %% Subject 1: 
-%% Remove offset
+%% remove mean against the different runs
+sub1PRE_EEG = sub1PRE_EEG - mean(sub1PRE_EEG);
+sub2PRE_EEG = sub2PRE_EEG - mean(sub2PRE_EEG);
+sub1POST_EEG = sub1POST_EEG - mean(sub1POST_EEG); 
+sub2POST_EEG = sub2POST_EEG - mean(sub2POST_EEG);
 signal = sub1PRE_EEG;
 figure;
 for i = 1:32
@@ -130,3 +134,5 @@ for i = 1:32
     hold on;  
 end
 sgtitle('Rectified') 
+
+
