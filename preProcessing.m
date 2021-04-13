@@ -119,3 +119,14 @@ for i = 1:32
     hold on;  
 end
 sgtitle('Bandpass Filter') 
+%% Rectify
+sub1PRE_EEG = abs(sub1PRE_EEG);
+signal = sub1PRE_EEG;
+figure;
+for i = 1:32
+    subplot(8,4,i);
+    plot((1:length(signal))./fs,(signal(:,i)))
+    title('Ch',i)
+    hold on;  
+end
+sgtitle('Rectified') 
