@@ -161,7 +161,7 @@ plot(SOIf3); % Plot the one-sided PSD.
 temp =get(gca);
 temp.Children(1).Color = 'b';
 legend('flex','ext','rest');
-title("Trial 1 PSD Flex vs Rest Channel 6 Sub1 PRE")
+title("Trial 1 PSD Flex vs Rest Channel Sub1 PRE")
 
 
 
