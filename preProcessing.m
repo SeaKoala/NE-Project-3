@@ -180,5 +180,81 @@ sub2POST_EEG = BPF(sub2POST_EEG);
 % Rectify
 %sub2POST_EEG = abs(sub2POST_EEG);
 
+%% 
 
+
+
+%% Extract task periods
+
+% Subject 1 PRE 
+%EXT
+extStartIndex_PRE = find(sub1PRE_TYP == 101);
+extStopIndex_PRE = find(sub1PRE_TYP == 102);
+% Get the first trial of ext
+extStartSample_PRE = sub1PRE_POS(extStartIndex_PRE(1));
+extStopSample_PRE = sub1PRE_POS(extStopIndex_PRE(1));
+
+% FLX
+flxStartIndex_PRE = find(sub1PRE_TYP == 301);
+flxStopIndex_PRE = find(sub1PRE_TYP == 302);
+% Get the first trial of flx
+flxStartSample_PRE = sub1PRE_POS(flxStartIndex_PRE(1));
+flxStopSample_PRE = sub1PRE_POS(flxStopIndex_PRE(1));
+% REST
+restStartIndex_PRE = find(sub1PRE_TYP == 401);
+restStopIndex_PRE = find(sub1PRE_TYP == 402);
+% Get the first trial of rest
+restStartSample_PRE = sub1PRE_POS(restStartIndex_PRE(1));
+restStopSample_PRE = sub1PRE_POS(restStopIndex_PRE(1));
+
+% Subject 1 POST
+%EXT
+extStartIndex_POST = find(sub1POST_TYP == 101);
+extStopIndex_POST = find(sub1POST_TYP == 102);
+% Get the first trial of ext
+extStartSample_POST = sub1POST_POS(extStartIndex_POST(1));
+extStopSample_POST = sub1POST_POS(extStopIndex_POST(1));
+% FLX
+flxStartIndex_POST = find(sub1POST_TYP == 301);
+flxStopIndex_POST = find(sub1POST_TYP == 302);
+% Get the first trial of flx
+flxStartSample_POST = sub1POST_POS(flxStartIndex_POST(1));
+flxStopSample_POST = sub1POST_POS(flxStopIndex_POST(1));
+% REST
+restStartIndex_POST = find(sub1POST_TYP == 401);
+restStopIndex_POST = find(sub1POST_TYP == 402);
+% Get the first trial of rest
+restStartSample_POST = sub1POST_POS(restStartIndex_POST(1));
+restStopSample_POST = sub1POST_POS(restStopIndex_POST(1));
+
+
+% Get all samples of PRE first task at channel : 20
+flxTaskPRE = sub1PRE_EEG(flxStartSample_PRE:flxStopSample_PRE, 17);
+extTaskPRE = sub1PRE_EEG(extStartSample_PRE:extStopSample_PRE, 17);
+restTaskPRE = sub1PRE_EEG(restStartSample_PRE:restStopSample_PRE,17);
+
+
+%% PSD of Flex vs Rest for single channel 
+% larger populations of neurons are more likely to occilate at lower frequencies
+figure;
+h = spectrum.welch; % creates the Welch spectrum estimator
+% 2 sec segment length -> 1024 samples
+% more frequency resolution at higher sample rate 
+h.SegmentLength = 512;
+SOIf3=psd(h,flxTaskPRE,'Fs',fs); % calculates and plot the one sided PSD
+plot(SOIf3); % Plot the one-sided PSD. 
+temp =get(gca);
+temp.Children(1).Color = 'r';
+hold on;
+SOIf3=psd(h,extTaskPRE,'Fs',fs); % calculates and plot the one sided PSD
+plot(SOIf3); % Plot the one-sided PSD. 
+temp =get(gca);
+temp.Children(1).Color = 'g';
+hold on;
+SOIf3=psd(h,restTaskPRE,'Fs',fs); % calculates and plot the one sided PSD
+plot(SOIf3); % Plot the one-sided PSD. 
+temp =get(gca);
+temp.Children(1).Color = 'b';
+legend('flex','ext','rest');
+title("Trial 1 PSD Flex vs Rest Single Channel Sub1 PRE")
 
