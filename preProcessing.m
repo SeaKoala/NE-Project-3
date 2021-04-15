@@ -85,12 +85,15 @@ sub2POST_EEG = [post1; post2];
 sub2POST_TYP = [typ1; typ2];
 sub2POST_POS = [pos1; pos2];
 
-%% Subject 1: 
-%% remove mean against the different runs
+%% remove offset against the different runs
 sub1PRE_EEG = sub1PRE_EEG - mean(sub1PRE_EEG);
 sub2PRE_EEG = sub2PRE_EEG - mean(sub2PRE_EEG);
 sub1POST_EEG = sub1POST_EEG - mean(sub1POST_EEG); 
 sub2POST_EEG = sub2POST_EEG - mean(sub2POST_EEG);
+
+%% SUBJECT 1 PRE:
+
+% Signal already has offset removed
 signal = sub1PRE_EEG;
 figure;
 for i = 1:32
@@ -100,7 +103,7 @@ for i = 1:32
     hold on;  
 end
 sgtitle('Remove Offset') 
-%% Remove outlier
+% Remove outlier
 sub1PRE_EEG = filloutliers((sub1PRE_EEG),'nearest','mean');
 signal = sub1PRE_EEG;
 figure;
@@ -111,7 +114,7 @@ for i = 1:32
     hold on;  
 end
 sgtitle('Remove Outliers') 
-%% Filter: ~[16-250] Hz
+% Filter: ~[8-30] Hz
 BPF = getBPFilter;
 sub1PRE_EEG = BPF(sub1PRE_EEG);
 signal = sub1PRE_EEG;
@@ -123,16 +126,59 @@ for i = 1:32
     hold on;  
 end
 sgtitle('Bandpass Filter') 
-%% Rectify
-sub1PRE_EEG = abs(sub1PRE_EEG);
-signal = sub1PRE_EEG;
-figure;
-for i = 1:32
-    subplot(8,4,i);
-    plot((1:length(signal))./fs,(signal(:,i)))
-    title('Ch',i)
-    hold on;  
-end
-sgtitle('Rectified') 
+% Rectify
+%sub1PRE_EEG = abs(sub1PRE_EEG);
+%signal = sub1PRE_EEG;
+%figure;
+%for i = 1:32
+    %subplot(8,4,i);
+    %plot((1:length(signal))./fs,(signal(:,i)))
+    %title('Ch',i)
+    %hold on;  
+%end
+%sgtitle('Rectified') 
+
+%% SUBJECT 1 POST:
+
+% Signal already has offset removed
+
+% Remove outlier
+sub1POST_EEG = filloutliers((sub1POST_EEG),'nearest','mean');
+
+% Filter: ~[8-30] Hz
+BPF = getBPFilter;
+sub1POST_EEG = BPF(sub1POST_EEG);
+ 
+% Rectify
+%sub1POST_EEG = abs(sub1POST_EEG);
+
+%% SUBJECT 2 PRE:
+
+% Signal already has offset removed
+
+% Remove outlier
+sub2PRE_EEG = filloutliers((sub2PRE_EEG),'nearest','mean');
+
+% Filter: ~[8-30] Hz
+BPF = getBPFilter;
+sub2PRE_EEG = BPF(sub2PRE_EEG);
+ 
+% Rectify
+%sub2PRE_EEG = abs(sub2PRE_EEG);
+
+%% SUBJECT 2 POST:
+
+% Signal already has offset removed
+
+% Remove outlier
+sub2POST_EEG = filloutliers((sub2POST_EEG),'nearest','mean');
+
+% Filter: ~[8-30] Hz
+BPF = getBPFilter;
+sub2POST_EEG = BPF(sub2POST_EEG);
+ 
+% Rectify
+%sub2POST_EEG = abs(sub2POST_EEG);
+
 
 
