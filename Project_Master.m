@@ -91,11 +91,11 @@ sub2POST_EEG = [post1; post2];
 sub2POST_TYP = [typ1; typ2];
 sub2POST_POS = [pos1; pos2];
 
-%% remove mean against the different runs
-sub1PRE_EEG = sub1PRE_EEG - mean(sub1PRE_EEG);
-sub2PRE_EEG = sub2PRE_EEG - mean(sub2PRE_EEG);
-sub1POST_EEG = sub1POST_EEG - mean(sub1POST_EEG); 
-sub2POST_EEG = sub2POST_EEG - mean(sub2POST_EEG);
+% %% remove mean against the different runs
+% sub1PRE_EEG = sub1PRE_EEG - mean(sub1PRE_EEG);
+% sub2PRE_EEG = sub2PRE_EEG - mean(sub2PRE_EEG);
+% sub1POST_EEG = sub1POST_EEG - mean(sub1POST_EEG); 
+% sub2POST_EEG = sub2POST_EEG - mean(sub2POST_EEG);
 
 %% 3 task all channels
 

@@ -432,27 +432,17 @@ title("Trial 1 PSD Flex vs Rest Single Channel Sub1 PRE")'
 
 %% Feature Extraction
 x = sub1PRE_DATA;
-size(x);
-var = zeros(32, 75);
-kurt = zeros(32, 75);
-skew = zeros(32, 75);
+size(x)
+me = zeros(32, 75);
 for i = 1:32
     for j = 1:75
-        var(i,j) = jfeeg('var', x(:,i,j));
-        kurt(i,j) = jfeeg('kurt', x(:,i,j));
-        skew(i,j) = jfeeg('skew', x(:,i,j));
-
-    end
-end
-
+        me(i,j) = 
+me = jfeeg('me', x);
+var = jfeeg('var', x);
+kurt = jfeeg('kurt', x);
+skew = jfeeg('skew', x);
 %%
-c = 9;
-figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
-hold on
-plot(var(c,:));
-plot(kurt(c,:));
-plot(skew(c,:));
-hold off
-legend( 'var', 'kurt', 'skew');
+
+plot(me)
 
 

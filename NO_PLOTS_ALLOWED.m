@@ -85,58 +85,14 @@ sub2POST_EEG = [post1; post2];
 sub2POST_TYP = [typ1; typ2];
 sub2POST_POS = [pos1; pos2];
 
-%% remove offset against the different runs
-% sub1PRE_EEG = sub1PRE_EEG - mean(sub1PRE_EEG);
-% sub2PRE_EEG = sub2PRE_EEG - mean(sub2PRE_EEG);
-% sub1POST_EEG = sub1POST_EEG - mean(sub1POST_EEG); 
-% sub2POST_EEG = sub2POST_EEG - mean(sub2POST_EEG);
-
 %% Remove Outliers and Filter
 
-% Signal already has offset removed
-signal = sub1PRE_EEG;
-figure;
-for i = 1:32
-    subplot(8,4,i);
-    plot((1:length(signal))./fs,(signal(:,i)))
-    title('Ch',i)
-    hold on;  
-end
-sgtitle('Remove Offset') 
 % Remove outlier
 sub1PRE_EEG = filloutliers((sub1PRE_EEG),'nearest','mean');
-signal = sub1PRE_EEG;
-figure;
-for i = 1:32
-    subplot(8,4,i);
-    plot((1:length(signal))./fs,(signal(:,i)))
-    title('Ch',i)
-    hold on;  
-end
-sgtitle('Remove Outliers') 
+
 % Filter: ~[8-30] Hz
 BPF = getBPFilter;
 sub1PRE_EEG = BPF(sub1PRE_EEG);
-signal = sub1PRE_EEG;
-figure;
-for i = 1:32
-    subplot(8,4,i);
-    plot((1:length(signal))./fs,(signal(:,i)))
-    title('Ch',i)
-    hold on;  
-end
-sgtitle('Bandpass Filter') 
-% Rectify
-%sub1PRE_EEG = abs(sub1PRE_EEG);
-%signal = sub1PRE_EEG;
-%figure;
-%for i = 1:32
-    %subplot(8,4,i);
-    %plot((1:length(signal))./fs,(signal(:,i)))
-    %title('Ch',i)
-    %hold on;  
-%end
-%sgtitle('Rectified') 
 
 % SUBJECT 1 POST:
 
@@ -179,82 +135,6 @@ sub2POST_EEG = BPF(sub2POST_EEG);
  
 % Rectify
 %sub2POST_EEG = abs(sub2POST_EEG);
-
-
-%% Extract task periods
-
-% Subject 1 PRE 
-%EXT
-extStartIndex_PRE = find(sub1PRE_TYP == 101);
-extStopIndex_PRE = find(sub1PRE_TYP == 102);
-% Get the first trial of ext
-extStartSample_PRE = sub1PRE_POS(extStartIndex_PRE(1));
-extStopSample_PRE = sub1PRE_POS(extStopIndex_PRE(1));
-
-% FLX
-flxStartIndex_PRE = find(sub1PRE_TYP == 301);
-flxStopIndex_PRE = find(sub1PRE_TYP == 302);
-% Get the first trial of flx
-flxStartSample_PRE = sub1PRE_POS(flxStartIndex_PRE(1));
-flxStopSample_PRE = sub1PRE_POS(flxStopIndex_PRE(1));
-% REST
-restStartIndex_PRE = find(sub1PRE_TYP == 401);
-restStopIndex_PRE = find(sub1PRE_TYP == 402);
-% Get the first trial of rest
-restStartSample_PRE = sub1PRE_POS(restStartIndex_PRE(1));
-restStopSample_PRE = sub1PRE_POS(restStopIndex_PRE(1));
-
-% Subject 1 POST
-%EXT
-extStartIndex_POST = find(sub1POST_TYP == 101);
-extStopIndex_POST = find(sub1POST_TYP == 102);
-% Get the first trial of ext
-extStartSample_POST = sub1POST_POS(extStartIndex_POST(1));
-extStopSample_POST = sub1POST_POS(extStopIndex_POST(1));
-% FLX
-flxStartIndex_POST = find(sub1POST_TYP == 301);
-flxStopIndex_POST = find(sub1POST_TYP == 302);
-% Get the first trial of flx
-flxStartSample_POST = sub1POST_POS(flxStartIndex_POST(1));
-flxStopSample_POST = sub1POST_POS(flxStopIndex_POST(1));
-% REST
-restStartIndex_POST = find(sub1POST_TYP == 401);
-restStopIndex_POST = find(sub1POST_TYP == 402);
-% Get the first trial of rest
-restStartSample_POST = sub1POST_POS(restStartIndex_POST(1));
-restStopSample_POST = sub1POST_POS(restStopIndex_POST(1));
-
-
-% Get all samples of PRE first task at channel : 20
-flxTaskPRE = sub1PRE_EEG(flxStartSample_PRE:flxStopSample_PRE, c);
-extTaskPRE = sub1PRE_EEG(extStartSample_PRE:extStopSample_PRE, c);
-restTaskPRE = sub1PRE_EEG(restStartSample_PRE:restStopSample_PRE,c);
-
-
-%% PSD Plots of Flex vs Rest for single channel 
-% larger populations of neurons are more likely to occilate at lower frequencies
-figure;
-h = spectrum.welch; % creates the Welch spectrum estimator
-% 2 sec segment length -> 1024 samples
-% more frequency resolution at higher sample rate 
-h.SegmentLength = 512;
-SOIf3=psd(h,flxTaskPRE,'Fs',fs); % calculates and plot the one sided PSD
-plot(SOIf3); % Plot the one-sided PSD. 
-temp =get(gca);
-temp.Children(1).Color = 'r';
-hold on;
-SOIf3=psd(h,extTaskPRE,'Fs',fs); % calculates and plot the one sided PSD
-plot(SOIf3); % Plot the one-sided PSD. 
-temp =get(gca);
-temp.Children(1).Color = 'g';
-hold on;
-SOIf3=psd(h,restTaskPRE,'Fs',fs); % calculates and plot the one sided PSD
-plot(SOIf3); % Plot the one-sided PSD. 
-temp =get(gca);
-temp.Children(1).Color = 'b';
-legend('flex','ext','rest');
-title("Trial 1 PSD Flex vs Rest Single Channel Sub1 PRE")'
-
 
 %% Build dataset by Task
 
@@ -359,6 +239,7 @@ results(1:25) = taskType(1);
 results(26:50) = taskType(2);
 results(51:75) = taskType(3);
 
+
 %% Grand Average
 GAVG_1_PRE = zeros(size(sub1PRE_DATA, 1), 32, 3);
 GAVG_1_POST = zeros(size(sub1POST_DATA, 1), 32, 3);
@@ -393,66 +274,3 @@ for i = 1:size(sub2POST_DATA, 1)
         GAVG_2_POST(i,:, 3) = sub2POST_DATA(i, :, t+50);
     end
 end
-
-%% GAVG Plots
-c = 1
-figure
-subplot(2,2,1)
-plot(GAVG_1_PRE(:, c, 1));
-subplot(2,2,2)
-plot(GAVG_1_POST(:, c, 1));
-subplot(2,2,3)
-plot(GAVG_2_PRE(:, c, 1));
-subplot(2,2,4)
-plot(GAVG_2_POST(:, c, 1));
-
-%%
-
-figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
-h = spectrum.welch; % creates the Welch spectrum estimator
-% 2 sec segment length -> 1024 samples
-% more frequency resolution at higher sample rate 
-h.SegmentLength = 512;
-SOIf3=psd(h,sub1PRE_DATA(:, c, 25),'Fs',fs); % calculates and plot the one sided PSD
-plot(SOIf3); % Plot the one-sided PSD. 
-temp =get(gca);
-temp.Children(1).Color = 'r';
-hold on;
-SOIf3=psd(h,sub1PRE_DATA(:, c, 50),'Fs',fs); % calculates and plot the one sided PSD
-plot(SOIf3); % Plot the one-sided PSD. 
-temp =get(gca);
-temp.Children(1).Color = 'g';
-hold on;
-SOIf3=psd(h,sub1PRE_DATA(:, c, 75),'Fs',fs); % calculates and plot the one sided PSD
-plot(SOIf3); % Plot the one-sided PSD. 
-temp =get(gca);
-temp.Children(1).Color = 'b';
-legend('flex','ext','rest');
-title("Trial 1 PSD Flex vs Rest Single Channel Sub1 PRE")'
-
-%% Feature Extraction
-x = sub1PRE_DATA;
-size(x);
-var = zeros(32, 75);
-kurt = zeros(32, 75);
-skew = zeros(32, 75);
-for i = 1:32
-    for j = 1:75
-        var(i,j) = jfeeg('var', x(:,i,j));
-        kurt(i,j) = jfeeg('kurt', x(:,i,j));
-        skew(i,j) = jfeeg('skew', x(:,i,j));
-
-    end
-end
-
-%%
-c = 9;
-figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
-hold on
-plot(var(c,:));
-plot(kurt(c,:));
-plot(skew(c,:));
-hold off
-legend( 'var', 'kurt', 'skew');
-
-
