@@ -456,3 +456,97 @@ hold off
 legend( 'var', 'kurt', 'skew');
 
 
+%% SNR
+mse = zeros(32,25);
+mae = zeros(32,25);
+SNR = zeros(32,25);
+PSNR = zeros(32,25);
+
+
+for c = 1:32
+    for j = 1:25
+        temp = sub1PRE_DATA(:, c, j); % signal
+        y = sub1PRE_DATA(:, c, j+50); % rest
+
+        mse(c,j)=0;
+        for i=1:length(temp)
+        mse(c,j)=mse(c,j)+(y(i)-temp(i))^2;
+        end
+        mse(c,j)=mse(c,j)/length(temp);
+        %MAE %Mean absolute error
+        mae(c,j)=0;
+        for i=1:length(temp)
+        mae(c,j)=mae(c,j)+abs(y(i)-temp(i));
+        end
+        mae(c,j)=mae(c,j)/length(temp);
+
+        num=0;
+        den=0;
+        for i=1:length(temp)
+        den=den+(y(i)-temp(i))^2;
+        end
+        for i=1:length (temp)
+        num=num+temp(i)^2;
+        end
+        SNR(c,j) = 20*log10(sqrt(num)/sqrt(den));
+        PSNR(c, j)= 20*log10(max(temp)/sqrt(mse(c,j)));
+
+    end
+end
+
+%%
+figure
+sgtitle('Filt EXT vs REST');
+for i =1:32
+    subplot(8,4,i)
+    hold on
+%     plot(mse(i,:));
+%     plot(mae(i,:));
+    plot(SNR(i,:));
+    plot(PSNR(i,:));
+    hold off
+end
+% legend('mse', 'mae', 'SNR', 'PSNR');
+legend('SNR', 'PSNR');
+    
+%%
+clc
+channels(13) = {'T9'};
+channels(19) = {'T10'};
+for i = 1:25
+    subplot(5,5,i)
+    plot_topography(channels, mse(:,i));
+end
+    
+    
+    
+    
+
+   
+    
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

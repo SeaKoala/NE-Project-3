@@ -276,15 +276,16 @@ for i = 1:size(sub2POST_DATA, 1)
 end
 
 %% Feature Extraction
-[var_1PRE, kurt_1PRE, skew_1PRE, mse_1PRE, mae_1PRE, SNR_1PRE, PSNR_1PRE,  Pavg_1PRE]  = feat_extract(sub1PRE_DATA);
-[var_1POST, kurt_1POST, skew_1POST, mse_1POST, mae_1POST, SNR_1POST, PSNR_1POST,  Pavg_1POST]  = feat_extract(sub1POST_DATA);
-[var_2PRE, kurt_2PRE, skew_2PRE, mse_2PRE, mae_2PRE, SNR_2PRE, PSNR_2PRE,   Pavg_2PRE]  = feat_extract(sub2PRE_DATA);
-[var_2POST, kurt_2POST, skew_2POST, mse_2POST, mae_2POST, SNR_2POST, PSNR_2POST,   Pavg_2POST]  = feat_extract(sub2POST_DATA);
+[var_1PRE, kurt_1PRE, skew_1PRE, mse_1PRE, mae_1PRE, SNR_1PRE, PSNR_1PRE]  = feat_extract(sub1PRE_DATA);
+[var_1POST, kurt_1POST, skew_1POST, mse_1POST, mae_1POST, SNR_1POST, PSNR_1POST]  = feat_extract(sub1POST_DATA);
+[var_2PRE, kurt_2PRE, skew_2PRE, mse_2PRE, mae_2PRE, SNR_2PRE, PSNR_2PRE]  = feat_extract(sub2PRE_DATA);
+[var_2POST, kurt_2POST, skew_2POST, mse_2POST, mae_2POST, SNR_2POST, PSNR_2POST]  = feat_extract(sub2POST_DATA);
 
 %% 
 function [var, kurt, skew, mse, mae, SNR, PSNR, Pavg]  = feat_extract(data) 
     
-    samp = 512; % number of samples for power averaging
+    fs = 512;
+    t = 2;
     x = data;
     size(x);
     var = zeros(32, 75);
@@ -301,7 +302,7 @@ function [var, kurt, skew, mse, mae, SNR, PSNR, Pavg]  = feat_extract(data)
             var(c,j) = jfeeg('var', x(:,c,j));
             kurt(c,j) = jfeeg('kurt', x(:,c,j));
             skew(c,j) = jfeeg('skew', x(:,c,j));
-            Pavg(c,j) = 1/samp * sum((x(1:samp,c,j)).^2);
+            Pavg(c,j) = 1/1024 * sum((x(1:1024,c,j)
 
 
             if j<= 25
