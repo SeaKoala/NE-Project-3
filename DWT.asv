@@ -21,43 +21,35 @@ function [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin] = DWT(signal)
     D6 = wrcoef('d',C,L,waveletFunction,6); %THETA
     A6 = wrcoef('a',C,L,waveletFunction,6); %DELTA
 
-%     Gamma = D3;
-%     figure; subplot(5,1,1); plot(1:1:length(Gamma),Gamma);title('GAMMA');
-% 
-     Beta = D4;
-%     subplot(5,1,2); plot(1:1:length(Beta), Beta); title('BETA');
-%      
-     Alpha = D5;
-%     subplot(5,1,3); plot(1:1:length(Alpha),Alpha); title('ALPHA');
-% 
-%     Theta = D6;
-%     subplot(5,1,4); plot(1:1:length(Theta),Theta);title('THETA');
-% 
-%     Delta = A6;
-%     subplot(5,1,5);plot(1:1:length(Delta),Delta);title('DELTA');
+    Gamma = D3;
+    figure; subplot(5,1,1); plot(1:1:length(Gamma),Gamma);title('GAMMA');
+
+    Beta = D4;
+    subplot(5,1,2); plot(1:1:length(Beta), Beta); title('BETA');
+     
+    Alpha = D5;
+    subplot(5,1,3); plot(1:1:length(Alpha),Alpha); title('ALPHA');
+
+    Theta = D6;
+    subplot(5,1,4); plot(1:1:length(Theta),Theta);title('THETA');
+
+    Delta = A6;
+    subplot(5,1,5);plot(1:1:length(Delta),Delta);title('DELTA');
     
-    %% Extract features for ERS/ERD analysis
+    %% Extract features
     
     % Alpha
-    n = length(cD5); % # of computed coefficients at each sub-band
+    n = length(cd5); % # of computed coefficients at each sub-band
     meanPowerAlpha = (sum(abs(cD5).^2))/n;
     maxAlpha = max(cD5);
     minAlpha = min(cD5);
     
-    % return
-    alphaPower = meanPowerAlpha;
-    alphaMax = maxAlpha; 
-    alphaMin = minAlpha;
-    
     % Beta
-    n = length(cD4); % # of computed coefficients at each sub-band
-    meanPowerBeta = (sum(abs(cD4).^2))/n;
-    maxBeta = max(cD4);
-    minBeta = min(cD4);
+    n = length(cd5); % # of computed coefficients at each sub-band
+    meanPowerAlpha = (sum(abs(cD5).^2))/n;
+    maxAlpha = max(cD5);
+    minAlpha = min(cD5);
     
-    % return
-    betaPower = meanPowerBeta;
-    betaMax = maxBeta;
-    betaMin = minBeta;
-    
+   
+
 end

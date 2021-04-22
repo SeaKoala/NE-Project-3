@@ -50,19 +50,13 @@ for trial = 1:totalTrials
     end
 end
 
-
-%% ERD/ERP analysis
-
-
-
 %% Visualize Features
 figure;
 for trial = 1:25
-    scatter(sub1_alphaMax_PRE(:,:,trial),sub1_betaMax_PRE(:,:,trial), "blue")
+    scatter(sub1_alphaPower_PRE(:,:,trial),sub1_betaPower_PRE(:,:,trial), "blue")
     hold on;
-    scatter(sub1_alphaMax_POST(:,:,trial),sub1_betaMax_POST(:,:,trial), "red")
+    scatter(sub1_alphaPower_POST(:,:,trial),sub1_betaPower_POST(:,:,trial), "red")
 end
- 
 
 xlabel('mean Alpha power') 
 ylabel('mean Beta power') 
