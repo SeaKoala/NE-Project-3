@@ -333,7 +333,7 @@ function [var, kurt, skew, mse, mae, SNR, PSNR, Pavg]  = feat_extract(data)
             end
             mse(c,j)=mse(c,j)/length(temp);
             %MAE %Mean absolute error
-            mae(c,j)=0;
+            mae(c,j)=0; 
             for i=1:length(temp)
             mae(c,j)=mae(c,j)+abs(y(i)-temp(i));
             end
