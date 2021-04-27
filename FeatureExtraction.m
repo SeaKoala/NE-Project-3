@@ -1,7 +1,7 @@
 %% Feature Extraction
 totalTrials = 75;
 
-%% SUB1 PRE
+%% SUB PRE
 signal = sub2PRE_DATA;
 
 % preallocate feature outputs for speed
@@ -21,17 +21,20 @@ signal = sub2PRE_DATA;
  % DWT, 6 level wavelet db4
 for trial = 1:totalTrials
     for channel = 1:32
-        [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin] = DWT(signal(:,channel,trial)); 
+        [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin,alphaSig,betaSig] = DWT(signal(:,channel,trial)); 
         sub1_alphaPower_PRE(1,channel,trial) = alphaPower;
         sub1_alphaMax_PRE(1,channel,trial) = alphaMax;
         sub1_alphaMin_PRE(1,channel,trial) = alphaMin;
         sub1_betaPower_PRE(1,channel,trial) = betaPower;
         sub1_betaMax_PRE(1,channel,trial) = betaMax;
         sub1_betaMin_PRE(1,channel,trial) = betaMin;
+        
+        sub1_alphaSig_PRE(:,channel,trial) = alphaSig;
+        sub1_betaSig_PRE(:,channel,trial) = betaSig;
     end
 end
 
-%% SUB1 POST
+%% SUB POST
 signal = sub2POST_DATA;
 
 % preallocate feature outputs for speed
@@ -49,13 +52,16 @@ signal = sub2POST_DATA;
  % DWT, 6 level wavelet db4
 for trial = 1:totalTrials
     for channel = 1:32
-        [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin] = DWT(signal(:,channel,trial)); 
+        [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin, alphaSig,betaSig] = DWT(signal(:,channel,trial)); 
         sub1_alphaPower_POST(1,channel,trial) = alphaPower;
         sub1_alphaMax_POST(1,channel,trial) = alphaMax;
         sub1_alphaMin_POST(1,channel,trial) = alphaMin;
         sub1_betaPower_POST(1,channel,trial) = betaPower;
         sub1_betaMax_POST(1,channel,trial) = betaMax;
         sub1_betaMin_POST(1,channel,trial) = betaMin;
+        
+        sub1_alphaSig_POST(:,channel,trial) = alphaSig;
+        sub1_betaSig_POST(:,channel,trial) = betaSig;
     end
 end
 
@@ -66,6 +72,7 @@ end
 
 %% PRE
 % flx
+% calculates the mean of 32 channels for each trial
 extAlphaGrandAVGPower = mean(sub1_alphaPower_PRE(1,:,1:25));
 extAlphaGrandMIN = mean(sub1_alphaMin_PRE(1,:,1:25));
 extAlphaGrandMAX = mean(sub1_alphaMax_PRE(1,:,1:25));
@@ -179,6 +186,11 @@ legend()
 title("Percent change in average power of alpha and beta bands between flx and rest");
 
 
+GAVGAlphaPRE = Gavg(sub1_alphaSig_PRE);
+GAVGAlphaPOST = Gavg(sub1_alphaSig_POST);
+GAVGBetaPRE = Gavg(sub1_betaSig_PRE);
+GAVGBetaPOST = Gavg(sub1_betaSig_POST);
 
-figure;
+
+
 

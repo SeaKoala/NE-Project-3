@@ -1,4 +1,4 @@
-function [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin, alphaSig, betSig] = DWT(signal)
+function [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin, alphaSig, betaSig] = DWT(signal)
 
     waveletFunction = 'db4';
     [C,L] = wavedec(signal,6,waveletFunction);
