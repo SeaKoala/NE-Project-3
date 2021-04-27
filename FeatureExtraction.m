@@ -2,16 +2,22 @@
 totalTrials = 75;
 
 %% SUB1 PRE
+signal = sub2PRE_DATA;
+
 % preallocate feature outputs for speed
 [sub1_alphaPower_PRE] = zeros(1,32,totalTrials);
 [sub1_alphaMax_PRE] = zeros(1,32,totalTrials);
 [sub1_alphaMin_PRE] = zeros(1,32,totalTrials);
+[sub1_alphaSig_PRE] = zeros(length(signal), 32, totalTrials);
+
 
 [sub1_betaPower_PRE] = zeros(1,32,totalTrials);
 [sub1_betaMax_PRE] = zeros(1,32,totalTrials);
 [sub1_betaMin_PRE] = zeros(1,32,totalTrials);
+[sub1_betaSig_PRE] = zeros(length(signal), 32, totalTrials);
 
-signal = sub2PRE_DATA;
+
+
  % DWT, 6 level wavelet db4
 for trial = 1:totalTrials
     for channel = 1:32
@@ -26,16 +32,20 @@ for trial = 1:totalTrials
 end
 
 %% SUB1 POST
+signal = sub2POST_DATA;
+
 % preallocate feature outputs for speed
 [sub1_alphaPower_POST] = zeros(1,32,totalTrials);
 [sub1_alphaMax_POST] = zeros(1,32,totalTrials);
 [sub1_alphaMin_POST] = zeros(1,32,totalTrials);
+[sub1_alphaSig_POST] = zeros(length(signal), 32, totalTrials);
 
 [sub1_betaPower_POST] = zeros(1,32,totalTrials);
 [sub1_betaMax_POST] = zeros(1,32,totalTrials);
 [sub1_betaMin_POST] = zeros(1,32,totalTrials);
+[sub1_betaSig_POST] = zeros(length(signal), 32, totalTrials);
 
-signal = sub2POST_DATA;
+
  % DWT, 6 level wavelet db4
 for trial = 1:totalTrials
     for channel = 1:32
@@ -167,4 +177,8 @@ h = bar(X,y)
 set(h, {'DisplayName'}, {'Alpha','Beta'}')
 legend()
 title("Percent change in average power of alpha and beta bands between flx and rest");
+
+
+
+figure;
 
