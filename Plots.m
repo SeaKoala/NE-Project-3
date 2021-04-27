@@ -1,7 +1,6 @@
 %% PLOTS 
 clc
 close all
-
 %%
 channels(13) = {'T9'};
 channels(19) = {'T10'};
@@ -51,15 +50,64 @@ for i = 1:size(Pavg_1PRE,1)
     hold off
 end
 
-%%
-% plotz(Pavg_1PRE, 1, 1, '1 PRE' , channels)
-% plotz(Pavg_1POST, 1, 1, '1 POST' , channels)
-plotz(Pavg_2PRE, 1, 2, '2 PRE' , channels)
-plotz(Pavg_2POST, 1, 2, '2 POST' , channels)
-%%
+%% Power grand Avg topo
+% plotz(Pavg_1PRE, wsize, 1, '1 PRE' , channels)
+% plotz(Pavg_1POST, wsize, 1, '1 POST' , channels)
+plotz(Pavg_2PRE, wsize, 2, '2 PRE' , channels)
+plotz(Pavg_2POST, wsize, 2, '2 POST' , channels)
+%% Grand Varaiance Topo
 
-% plotz(Gvar_1PRE, 1, 1, 'Gvar Sub 1 PRE' , channels)
-plotz(Gvar_1POST, 1, 1, 'Gvar Sub 1 POST' , channels)
+plotz(Gvar_1PRE, wsize, 1, 'Gvar Sub 1 PRE' , channels)
+plotz(Gvar_1POST, wsize, 1, 'Gvar Sub 1 POST' , channels)
+
+%% Alpha & Beta Topo Plots
+plotz(beta_Pavg_1PRE, wsize, 1, 'Avg Beta Power Sub 11 Pre' , channels)
+plotz(beta_Pavg_1POST, wsize, 1, 'Avg Beta Power Sub 11 Post' , channels)
+
+plotz(alpha_Pavg_1PRE, wsize, 1, 'Avg Alpha Power Sub 11 Pre' , channels)
+plotz(alpha_Pavg_1POST, wsize, 1, 'Avg Alpha Power Sub 11 Post' , channels)
+
+%% ERS Topo
+plotz(ERS_a_1PRE, wsize, 1, 'ERS Alpha Sub 1 Pre' , channels)
+plotz(ERS_a_1PRE, wsize, 1, 'ERS Alpha Sub 1 Post' , channels)
+
+plotz(ERS_b_1PRE, wsize, 1, 'ERS Beta Sub 1 Pre' , channels)
+plotz(ERS_b_1POST, wsize, 1, 'ERS Beta Sub 1 Post' , channels)
+
+% plotz(ERS_a_1PRE, wsize, 2, 'ERS Alpha Sub 1 Pre' , channels)
+% plotz(ERS_a_1PRE, wsize, 2, 'ERS Alpha Sub 1 Post' , channels)
+% 
+% plotz(ERS_b_1PRE, wsize, 2, 'ERS Beta Sub 1 Pre' , channels)
+% plotz(ERS_b_1POST, wsize, 2, 'ERS Beta Sub 1 Post' , channels)
+
+%%
+labelA = [{'Ext PRE', 'Ext POST', 'Flex PRE', 'Flex POST'}];
+labelB = [{'beta pre Ext', 'beta post Ext', 'beta pre Flex', 'post Flex'}];
+time = [2, 4] ;
+lab = [30, 50];
+
+figure
+subplot(1,2,1)
+hold on
+title('Alpha ERS')
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize, Avg_ERS_a_1PRE(:,1))
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize,Avg_ERS_a_1POST(:,1))
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize,Avg_ERS_a_1PRE(:,2))
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize,Avg_ERS_a_1POST(:,2))
+stem(time, lab);
+legend(labelA); 
+hold off
+
+
+subplot(1,2,2)
+hold on
+title('Beta ERS')
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize, Avg_ERS_b_1PRE(:,1))
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize, Avg_ERS_b_1POST(:,1))
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize, Avg_ERS_b_1PRE(:,2))
+plot((1:length(Avg_ERS_a_1PRE(:,1)))*wsize, Avg_ERS_b_1POST(:,2))
+legend(labelA);
+hold off
 %%
 
 function plotz(Pavg, Wsize, task, name, channels)

@@ -2,7 +2,7 @@
 totalTrials = 75;
 
 %% SUB PRE
-signal = sub2PRE_DATA;
+signal = sub1PRE_DATA;
 
 % preallocate feature outputs for speed
 [sub1_alphaPower_PRE] = zeros(1,32,totalTrials);
@@ -35,7 +35,7 @@ for trial = 1:totalTrials
 end
 
 %% SUB POST
-signal = sub2POST_DATA;
+signal = sub1POST_DATA;
 
 % preallocate feature outputs for speed
 [sub1_alphaPower_POST] = zeros(1,32,totalTrials);
@@ -185,11 +185,7 @@ set(h, {'DisplayName'}, {'Alpha','Beta'}')
 legend()
 title("Percent change in average power of alpha and beta bands between flx and rest");
 
-
-GAVGAlphaPRE = Gavg(sub1_alphaSig_PRE);
-GAVGAlphaPOST = Gavg(sub1_alphaSig_POST);
-GAVGBetaPRE = Gavg(sub1_betaSig_PRE);
-GAVGBetaPOST = Gavg(sub1_betaSig_POST);
+%%
 
 
 
