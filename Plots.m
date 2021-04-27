@@ -52,11 +52,14 @@ for i = 1:size(Pavg_1PRE,1)
 end
 
 %%
-plotz(Pavg_1PRE, 1, 2, '1 PRE' , channels)
-% plotz(Pavg_1POST, 1, 2, '1 POST' , channels)
-% plotz(Pavg_2PRE, 1, 2, '2 PRE' , channels)
-% plotz(Pavg_2POST, 1, 2, '2 POST' , channels)
+% plotz(Pavg_1PRE, 1, 1, '1 PRE' , channels)
+% plotz(Pavg_1POST, 1, 1, '1 POST' , channels)
+plotz(Pavg_2PRE, 1, 2, '2 PRE' , channels)
+plotz(Pavg_2POST, 1, 2, '2 POST' , channels)
+%%
 
+% plotz(Gvar_1PRE, 1, 1, 'Gvar Sub 1 PRE' , channels)
+plotz(Gvar_1POST, 1, 1, 'Gvar Sub 1 POST' , channels)
 %%
 
 function plotz(Pavg, Wsize, task, name, channels)
@@ -66,7 +69,7 @@ function plotz(Pavg, Wsize, task, name, channels)
         channels(13) = {'T9'};
         channels(19) = {'T10'};
         figure
-        sgtitle(['AVG Power ' , name,  taskType(task)]);
+        sgtitle([name,  taskType(task)]);
 %         labCount =1;
         % plot_topography.make_contour
         % for i = 1:2
