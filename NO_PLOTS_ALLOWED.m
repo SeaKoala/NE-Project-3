@@ -167,52 +167,52 @@ Gvar_2PRE = Gvar(sub2PRE_DATA);
 Gvar_2POST = Gvar(sub2POST_DATA);
 
 
-%% ERS
-wsize = 1;
-GAVGAlphaPRE = Gavg(sub1_alphaSig_PRE);
-GAVGAlphaPOST = Gavg(sub1_alphaSig_POST);
-GAVGBetaPRE = Gavg(sub1_betaSig_PRE);
-GAVGBetaPOST = Gavg(sub1_betaSig_POST);
-
-[alpha_Pavg_1PRE] = segmentation(GAVGAlphaPRE, wsize, 0);
-[alpha_Pavg_1POST] = segmentation(GAVGAlphaPOST, wsize, 0);
-[beta_Pavg_1PRE] = segmentation(GAVGBetaPRE, wsize, 0);
-[beta_Pavg_1POST] = segmentation(GAVGBetaPOST, wsize, 0);
-
-ERS_a_1PRE = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
-ERS_a_1POST = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
-ERS_b_1PRE = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
-ERS_b_1POST = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
-for c = 1:32
-    for i = 1:size(alpha_Pavg_1PRE, 1)
-        ERS_a_1PRE(i, c, 1) = 100 * abs(alpha_Pavg_1PRE(i, c, 3) - alpha_Pavg_1PRE(i, c, 1))/abs(alpha_Pavg_1PRE(i, c, 3));
-        ERS_a_1POST(i, c, 1) = 100 * abs(alpha_Pavg_1POST(i, c, 3) - alpha_Pavg_1POST(i, c, 1))/abs(alpha_Pavg_1POST(i, c, 3));
-        ERS_b_1PRE(i, c, 1) = 100 * abs(beta_Pavg_1PRE(i, c, 3) - beta_Pavg_1PRE(i, c, 1))/abs(beta_Pavg_1PRE(i, c, 3));
-        ERS_b_1POST(i, c, 1) = 100 * abs(beta_Pavg_1POST(i, c, 3) - beta_Pavg_1POST(i, c, 1))/abs(beta_Pavg_1POST(i, c, 3));
-        ERS_a_1PRE(i, c, 2) = 100 * abs(alpha_Pavg_1PRE(i, c, 3) - alpha_Pavg_1PRE(i, c, 2))/abs(alpha_Pavg_1PRE(i, c, 3));
-        ERS_a_1POST(i, c, 2) = 100 * abs(alpha_Pavg_1POST(i, c, 3) - alpha_Pavg_1POST(i, c, 2))/abs(alpha_Pavg_1POST(i, c, 3));
-        ERS_b_1PRE(i, c, 2) = 100 * abs(beta_Pavg_1PRE(i, c, 3) - beta_Pavg_1PRE(i, c, 2))/abs(beta_Pavg_1PRE(i, c, 3));
-        ERS_b_1POST(i, c, 2) = 100 * abs(beta_Pavg_1POST(i, c, 3) - beta_Pavg_1POST(i, c, 2))/abs(beta_Pavg_1POST(i, c, 3));
-    end
-end
-for i = 1:size(alpha_Pavg_1PRE, 1)
-    for t= 1:2
-    Avg_ERS_a_1PRE(i,t) = mean(ERS_a_1PRE(i, :, t));
-    Avg_ERS_a_1POST(i,t) = mean(ERS_a_1POST(i, :, t));
-    Avg_ERS_b_1PRE(i,t) = mean(ERS_b_1PRE(i, :, t));
-    Avg_ERS_b_1POST(i,t) = mean(ERS_b_1POST(i, :, t));
-    end
-end
-%% 
-GAVGAlphaPRE = Gavg(sub1_alphaPower_PRE);
-GAVGAlphaPOST = Gavg(sub1_alphaPower_POST);
-GAVGBetaPRE = Gavg(sub1_betaPower_PRE);
-GAVGBetaPOST = Gavg(sub1_betaPower_POST);
-
-[alpha_Pavg_1PRE] = segmentation(GAVGAlphaPRE, 1, 0);
-[alpha_Pavg_1POST] = segmentation(GAVGAlphaPOST, 1, 0);
-[beta_Pavg_1PRE] = segmentation(GAVGBetaPRE, 1, 0);
-[beta_Pavg_1POST] = segmentation(GAVGBetaPOST, 1, 0);
+% %% ERS
+% wsize = 1;
+% GAVGAlphaPRE = Gavg(sub1_alphaSig_PRE);
+% GAVGAlphaPOST = Gavg(sub1_alphaSig_POST);
+% GAVGBetaPRE = Gavg(sub1_betaSig_PRE);
+% GAVGBetaPOST = Gavg(sub1_betaSig_POST);
+% 
+% [alpha_Pavg_1PRE] = segmentation(GAVGAlphaPRE, wsize, 0);
+% [alpha_Pavg_1POST] = segmentation(GAVGAlphaPOST, wsize, 0);
+% [beta_Pavg_1PRE] = segmentation(GAVGBetaPRE, wsize, 0);
+% [beta_Pavg_1POST] = segmentation(GAVGBetaPOST, wsize, 0);
+% 
+% ERS_a_1PRE = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
+% ERS_a_1POST = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
+% ERS_b_1PRE = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
+% ERS_b_1POST = zeros(size(alpha_Pavg_1PRE, 1), 32, 2);
+% for c = 1:32
+%     for i = 1:size(alpha_Pavg_1PRE, 1)
+%         ERS_a_1PRE(i, c, 1) = 100 * abs(alpha_Pavg_1PRE(i, c, 3) - alpha_Pavg_1PRE(i, c, 1))/abs(alpha_Pavg_1PRE(i, c, 3));
+%         ERS_a_1POST(i, c, 1) = 100 * abs(alpha_Pavg_1POST(i, c, 3) - alpha_Pavg_1POST(i, c, 1))/abs(alpha_Pavg_1POST(i, c, 3));
+%         ERS_b_1PRE(i, c, 1) = 100 * abs(beta_Pavg_1PRE(i, c, 3) - beta_Pavg_1PRE(i, c, 1))/abs(beta_Pavg_1PRE(i, c, 3));
+%         ERS_b_1POST(i, c, 1) = 100 * abs(beta_Pavg_1POST(i, c, 3) - beta_Pavg_1POST(i, c, 1))/abs(beta_Pavg_1POST(i, c, 3));
+%         ERS_a_1PRE(i, c, 2) = 100 * abs(alpha_Pavg_1PRE(i, c, 3) - alpha_Pavg_1PRE(i, c, 2))/abs(alpha_Pavg_1PRE(i, c, 3));
+%         ERS_a_1POST(i, c, 2) = 100 * abs(alpha_Pavg_1POST(i, c, 3) - alpha_Pavg_1POST(i, c, 2))/abs(alpha_Pavg_1POST(i, c, 3));
+%         ERS_b_1PRE(i, c, 2) = 100 * abs(beta_Pavg_1PRE(i, c, 3) - beta_Pavg_1PRE(i, c, 2))/abs(beta_Pavg_1PRE(i, c, 3));
+%         ERS_b_1POST(i, c, 2) = 100 * abs(beta_Pavg_1POST(i, c, 3) - beta_Pavg_1POST(i, c, 2))/abs(beta_Pavg_1POST(i, c, 3));
+%     end
+% end
+% for i = 1:size(alpha_Pavg_1PRE, 1)
+%     for t= 1:2
+%     Avg_ERS_a_1PRE(i,t) = mean(ERS_a_1PRE(i, :, t));
+%     Avg_ERS_a_1POST(i,t) = mean(ERS_a_1POST(i, :, t));
+%     Avg_ERS_b_1PRE(i,t) = mean(ERS_b_1PRE(i, :, t));
+%     Avg_ERS_b_1POST(i,t) = mean(ERS_b_1POST(i, :, t));
+%     end
+% end
+% %% 
+% GAVGAlphaPRE = Gavg(sub1_alphaPower_PRE);
+% GAVGAlphaPOST = Gavg(sub1_alphaPower_POST);
+% GAVGBetaPRE = Gavg(sub1_betaPower_PRE);
+% GAVGBetaPOST = Gavg(sub1_betaPower_POST);
+% 
+% [alpha_Pavg_1PRE] = segmentation(GAVGAlphaPRE, 1, 0);
+% [alpha_Pavg_1POST] = segmentation(GAVGAlphaPOST, 1, 0);
+% [beta_Pavg_1PRE] = segmentation(GAVGBetaPRE, 1, 0);
+%[beta_Pavg_1POST] = segmentation(GAVGBetaPOST, 1, 0);
 
 % erdAlpha_POST_flx = 100 * abs(rest - action)/rest;
 %% 

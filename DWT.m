@@ -1,4 +1,4 @@
-function [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin, alphaSig, betaSig] = DWT(signal)
+function [alphaPower,alphaMean,betaPower,betaMean, alphaSig, betaSig] = DWT(signal)
 
     waveletFunction = 'db4';
     [C,L] = wavedec(signal,6,waveletFunction);
@@ -41,27 +41,24 @@ function [alphaPower,alphaMax,alphaMin,betaPower,betaMax,betaMin, alphaSig, beta
     % Alpha
     n = length(cD5); % # of computed coefficients at each sub-band
     meanPowerAlpha = (sum(abs(cD5).^2))/n;
-    maxAlpha = max(cD5);
-    minAlpha = min(cD5);
-    
-    % return
-    alphaPower = meanPowerAlpha;
-    alphaMax = maxAlpha; 
-    alphaMin = minAlpha;
     
     % Beta
     n = length(cD4); % # of computed coefficients at each sub-band
     meanPowerBeta = (sum(abs(cD4).^2))/n;
-    maxBeta = max(cD4);
-    minBeta = min(cD4);
-    
+
     % return
+    alphaPower = meanPowerAlpha;
     betaPower = meanPowerBeta;
-    betaMax = maxBeta;
-    betaMin = minBeta;
-    
+
     alphaSig = Alpha;
     betaSig = Beta;
+    
+    alphaMean  = mean(Alpha);
+    
+    betaMean = mean(Beta);
+   
+    
+    
     
     
 end
