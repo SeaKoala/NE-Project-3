@@ -53,8 +53,8 @@ end
 %% Power grand Avg topo
 % plotz(Pavg_1PRE, wsize, 1, '1 PRE' , channels)
 % plotz(Pavg_1POST, wsize, 1, '1 POST' , channels)
-plotz(Pavg_2PRE, wsize, 2, '2 PRE' , channels)
-plotz(Pavg_2POST, wsize, 2, '2 POST' , channels)
+plotz(Pavg_2PRE, wsize, 2, 'Avg Power sub 2 PRE' , channels)
+plotz(Pavg_2POST, wsize, 2, 'Avg Power sub 2 POST' , channels)
 %% Grand Varaiance Topo
 
 plotz(Gvar_1PRE, wsize, 1, 'Gvar Sub 1 PRE' , channels)

@@ -146,6 +146,10 @@ taskType  = [{'EXT', 'FLX', 'REST'}];
 results(1:25) = taskType(1);
 results(26:50) = taskType(2);
 results(51:75) = taskType(3);
+% save sub1PRE_DATA sub1PRE_DATA;
+% save sub1POST_DATA sub1POST_DATA;
+% save sub2PRE_DATA sub2PRE_DATA;
+save sub2POST_DATA sub2POST_DATA;
 
 %% Grand Average
 GAVG_1_PRE = Gavg(sub1PRE_DATA);
@@ -160,7 +164,7 @@ wsize = 1;
 [Pavg_2PRE] = segmentation(GAVG_2_PRE, wsize, 0);
 [Pavg_2POST] = segmentation(GAVG_2_POST, wsize, 0);
 
-%%
+%% Grand Variance
 Gvar_1PRE = Gvar(sub1PRE_DATA);
 Gvar_1POST = Gvar(sub1POST_DATA);
 Gvar_2PRE = Gvar(sub2PRE_DATA);
@@ -217,7 +221,7 @@ Gvar_2POST = Gvar(sub2POST_DATA);
 % erdAlpha_POST_flx = 100 * abs(rest - action)/rest;
 %% 
 function [x_DATA] = slice_n_dice(eeg, typ, pos) 
-
+    extraSamp = 0
     totalTrials = 75;
 
     extStartIndex_PRE = find(typ == 100);
@@ -233,14 +237,14 @@ function [x_DATA] = slice_n_dice(eeg, typ, pos)
     sizes = zeros(25,1);
 
     for i = 1:75
-        sizes(i) = size(eeg(pos(startIndexs(i))-1024:pos(stopIndexs(i)), :), 1);
+        sizes(i) = size(eeg(pos(startIndexs(i))-extraSamp:pos(stopIndexs(i)), :), 1);
     end
     max_samples = (max(sizes))
 
     x_DATA = zeros(max_samples, 32,totalTrials);
 
     for i = 1:75
-        x_DATA(1:sizes(i),:,i) = eeg(pos(startIndexs(i))-1024:pos(stopIndexs(i)), :); 
+        x_DATA(1:sizes(i),:,i) = eeg(pos(startIndexs(i))-extraSamp:pos(stopIndexs(i)), :); 
     end
 end
 
