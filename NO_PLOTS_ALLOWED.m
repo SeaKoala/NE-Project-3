@@ -136,7 +136,7 @@ sub2POST_EEG = BPF(sub2POST_EEG);
 % Rectify
 %sub2POST_EEG = abs(sub2POST_EEG);
 
-%%
+%% Cut up trials and 
 sub1PRE_DATA = slice_n_dice(sub1PRE_EEG, sub1PRE_TYP, sub1PRE_POS); 
 sub1POST_DATA = slice_n_dice(sub1POST_EEG, sub1POST_TYP, sub1POST_POS); 
 sub2PRE_DATA = slice_n_dice(sub2PRE_EEG, sub2PRE_TYP, sub2PRE_POS); 
@@ -146,10 +146,11 @@ taskType  = [{'EXT', 'FLX', 'REST'}];
 results(1:25) = taskType(1);
 results(26:50) = taskType(2);
 results(51:75) = taskType(3);
+save results results
 % save sub1PRE_DATA sub1PRE_DATA;
 % save sub1POST_DATA sub1POST_DATA;
 % save sub2PRE_DATA sub2PRE_DATA;
-save sub2POST_DATA sub2POST_DATA;
+% save sub2POST_DATA sub2POST_DATA;
 
 %% Grand Average
 GAVG_1_PRE = Gavg(sub1PRE_DATA);
