@@ -220,6 +220,22 @@ Gvar_2POST = Gvar(sub2POST_DATA);
 %[beta_Pavg_1POST] = segmentation(GAVGBetaPOST, 1, 0);
 
 % erdAlpha_POST_flx = 100 * abs(rest - action)/rest;
+
+%% save power data
+% save sub1_alphaSig_PRE sub1_alphaSig_PRE
+% save sub1_betaSig_PRE sub1_betaSig_PRE
+% 
+% save sub1_alphaSig_POST sub1_alphaSig_POST
+% save sub1_betaSig_POST sub1_betaSig_POST
+
+save sub2_alphaSig_PRE sub1_alphaSig_PRE
+save sub2_betaSig_PRE sub1_betaSig_PRE
+
+save sub2_alphaSig_POST sub1_alphaSig_POST
+save sub2_betaSig_POST sub1_betaSig_POST
+
+
+
 %% 
 function [x_DATA] = slice_n_dice(eeg, typ, pos) 
     extraSamp = 0

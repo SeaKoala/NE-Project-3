@@ -2,7 +2,7 @@
 totalTrials = 75;
 
 %% SUB PRE
-signal = sub1PRE_DATA;
+signal = sub2PRE_DATA;
 
 % preallocate feature outputs for speed
 [sub1_alphaPower_PRE] = zeros(1,32,totalTrials);
@@ -32,7 +32,7 @@ for trial = 1:totalTrials
 end
 
 %% SUB POST
-signal = sub1POST_DATA;
+signal = sub2POST_DATA;
 
 % preallocate feature outputs for speed
 [sub1_alphaPower_POST] = zeros(1,32,totalTrials);
@@ -116,7 +116,7 @@ Beta_PRE_flx = action;
 
 % ext
 % calculates the mean of 32 channels for each trial
-mean(sub1_alphaSigEXT_PRE,[2 3])
+% mean(sub1_alphaSigEXT_PRE,[2 3])
 extAlphaGrandAVGPower = mean(sub1_alphaPower_POST(1,MIchannels,1:25));
 
 extBetaGrandAVGPower = mean(sub1_betaPower_POST(1,MIchannels,1:25));
