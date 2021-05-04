@@ -158,7 +158,7 @@ GAVG_1_POST = Gavg(sub1POST_DATA);
 GAVG_2_PRE = Gavg(sub2PRE_DATA);
 GAVG_2_POST = Gavg(sub2POST_DATA);
 %%
-wsize = 1;
+wsize = .5;
 
 [Pavg_1PRE] = segmentation(GAVG_1_PRE, wsize, 0);
 [Pavg_1POST] = segmentation(GAVG_1_POST, wsize, 0);
@@ -228,11 +228,11 @@ Gvar_2POST = Gvar(sub2POST_DATA);
 % save sub1_alphaSig_POST sub1_alphaSig_POST
 % save sub1_betaSig_POST sub1_betaSig_POST
 
-save sub2_alphaSig_PRE sub1_alphaSig_PRE
-save sub2_betaSig_PRE sub1_betaSig_PRE
-
-save sub2_alphaSig_POST sub1_alphaSig_POST
-save sub2_betaSig_POST sub1_betaSig_POST
+% save sub2_alphaSig_PRE sub1_alphaSig_PRE
+% save sub2_betaSig_PRE sub1_betaSig_PRE
+% 
+% save sub2_alphaSig_POST sub1_alphaSig_POST
+% save sub2_betaSig_POST sub1_betaSig_POST
 
 
 

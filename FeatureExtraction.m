@@ -2,7 +2,7 @@
 totalTrials = 75;
 
 %% SUB PRE
-signal = sub2PRE_DATA;
+signal = sub1PRE_DATA;
 
 % preallocate feature outputs for speed
 [sub1_alphaPower_PRE] = zeros(1,32,totalTrials);
@@ -32,7 +32,7 @@ for trial = 1:totalTrials
 end
 
 %% SUB POST
-signal = sub2POST_DATA;
+signal = sub1POST_DATA;
 
 % preallocate feature outputs for speed
 [sub1_alphaPower_POST] = zeros(1,32,totalTrials);
