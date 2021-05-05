@@ -241,11 +241,11 @@ function [x_DATA] = slice_n_dice(eeg, typ, pos)
     extraSamp = 0
     totalTrials = 75;
 
-    extStartIndex_PRE = find(typ == 100);
+    extStartIndex_PRE = find(typ == 101);
     extStopIndex_PRE = find(typ == 102);
-    flxStartIndex_PRE = find(typ == 300);
+    flxStartIndex_PRE = find(typ == 301);
     flxStopIndex_PRE = find(typ == 302);
-    restStartIndex_PRE = find(typ == 400);
+    restStartIndex_PRE = find(typ == 401);
     restStopIndex_PRE = find(typ == 402);
 
     startIndexs = [extStartIndex_PRE; flxStartIndex_PRE; restStartIndex_PRE];

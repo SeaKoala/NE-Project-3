@@ -331,14 +331,13 @@ plot( (1:length(ERD_beta_PRE))./fs, ERD_beta_PRE)
 
 %%
 figure;
-plot( (1:length(sub1_GrandBetaExt_PRE))./fs, sub1_GrandBetaExt_PRE, "blue")
+subplot(1,2,1);
 hold on;
-plot( (1:length(sub1_GrandBetaRest_PRE))./fs, sub1_GrandBetaRest_PRE, "red")
-hold on;
+plot( (1:512)./fs, sub1_GrandAlphaExt_PRE(1:512), "blue")
+plot( (1:512)./fs, sub1_GrandAlphaRest_PRE(1:512), "red")
+title('GAvg Alpha Pre')
+hold off;
 
-
-
-%% POST
 
 % ext 
 sub1_alphaSigEXT_POST = sub1_alphaSig_POST(:,MIchannels,1:25);
@@ -362,12 +361,14 @@ sub1_betaSigREST_POST = sub1_betaSig_POST(:,MIchannels,51:75);
 sub1_GrandBetaRest_POST = mean(sub1_betaSigREST_POST,[2 3]);
 
 
-figure;
-plot( (1:length(sub1_GrandBetaExt_POST))./fs, sub1_GrandBetaExt_POST, "blue")
-hold on;
-plot( (1:length(sub1_GrandBetaRest_POST))./fs, sub1_GrandBetaRest_POST, "red")
-hold on;
 
+subplot(1,2,2);
+hold on;
+plot( (1:512)./fs, sub1_GrandAlphaExt_POST(1:512), "blue")
+plot( (1:512)./fs, sub1_GrandAlphaRest_POST(1:512), "red")
+legend('Ext', 'Rest');
+title('GAvg Alpha Post')
+hold off;
 
 %% SNR
 
@@ -390,22 +391,23 @@ Beta_SNR_POST_FLX = snr(sub1_GrandBetaFlx_POST,sub1_GrandBetaRest_POST)
 
 
 figure;
+subplot(1,2,1)
 X = categorical({'PRE TESS','POST TESS'});
 X = reordercats(X,{'PRE TESS', 'POST TESS'});
 y = [Alpha_SNR_PRE_EXT Beta_SNR_PRE_EXT; Alpha_SNR_POST_EXT Beta_SNR_POST_EXT];
 h = bar(X,y)
 set(h, {'DisplayName'}, {'Alpha','Beta'}')
 legend()
-title("SNR EXT");
+title("Execution Period Ext Sub 1 SNR");
 
-figure;
+subplot(1,2,2)
 X = categorical({'PRE TESS','POST TESS'});
 X = reordercats(X,{'PRE TESS', 'POST TESS'});
 y = [Alpha_SNR_PRE_FLX Beta_SNR_PRE_FLX; Alpha_SNR_POST_FLX Beta_SNR_POST_FLX];
 h = bar(X,y)
 set(h, {'DisplayName'}, {'Alpha','Beta'}')
 legend()
-title("SNR FLX");
+title("Execution Period Flx Sub 1 SNR");
 
 
 
