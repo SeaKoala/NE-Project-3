@@ -27,9 +27,9 @@ legend
 
 %%
 task = 1;
-
-channels(13) = {'T9'};
-channels(19) = {'T10'};
+% 
+% channels(13) = {'T9'};
+% channels(19) = {'T10'};
 figure
 sgtitle('G AVG Power Sub 1 PRE TESS EXT');
 
@@ -51,21 +51,21 @@ for i = 1:size(Pavg_1PRE,1)
 end
 
 %% Power grand Avg topo EXT
-plotz(Pavg_1PRE, wsize, 1, 'Avg Power sub 1 PRE' , channels)
-plotz(Pavg_1POST, wsize, 1, 'Avg Power sub 1 POST' , channels)
+% plotz(Pavg_1PRE, wsize, 1, 'Avg Power sub 1 PRE' , channels)
+% plotz(Pavg_1POST, wsize, 1, 'Avg Power sub 1 POST' , channels)
 plotz(Pavg_2PRE, wsize, 1, 'Avg Power sub 2 PRE' , channels)
 plotz(Pavg_2POST, wsize, 1, 'Avg Power sub 2 POST' , channels)
 
 %% Power grand Avg topo FLX
-plotz(Pavg_1PRE, wsize, 2, 'Avg Power sub 1 PRE' , channels)
-plotz(Pavg_1POST, wsize, 2, 'Avg Power sub 1 POST' , channels)
-% plotz(Pavg_2PRE, wsize, 2, 'Avg Power sub 2 PRE' , channels)
-% plotz(Pavg_2POST, wsize, 2, 'Avg Power sub 2 POST' , channels)
+% plotz(Pavg_1PRE, wsize, 2, 'Avg Power sub 1 PRE' , channels)
+% plotz(Pavg_1POST, wsize, 2, 'Avg Power sub 1 POST' , channels)
+% plotz(Pavg_2PRE(:,MIchannels,:), wsize, 2, 'Avg Power sub 2 PRE' , channels(MIchannels))
+plotz(Pavg_2POST(:,MIchannels,:), wsize, 2, 'Avg Power sub 2 POST' , channels(MIchannels))
 %% Power grand Avg topo Rest
-plotz(Pavg_1PRE, wsize, 3, 'Avg Power sub 1 PRE' , channels)
-plotz(Pavg_1POST, wsize, 3, 'Avg Power sub 1 POST' , channels)
-% plotz(Pavg_2PRE, wsize, 3, 'Avg Power sub 2 PRE' , channels)
-% plotz(Pavg_2POST, wsize, 3, 'Avg Power sub 2 POST' , channels)
+% plotz(Pavg_1PRE, wsize, 3, 'Avg Power sub 1 PRE' , channels)
+% plotz(Pavg_1POST, wsize, 3, 'Avg Power sub 1 POST' , channels)
+plotz(Pavg_2PRE, wsize, 3, 'Avg Power sub 2 PRE' , channels)
+plotz(Pavg_2POST, wsize, 3, 'Avg Power sub 2 POST' , channels)
 %% Grand Varaiance Topo
 
 plotz(Gvar_1PRE, wsize, 1, 'Gvar Sub 1 PRE' , channels)
@@ -201,9 +201,9 @@ hold off
 function plotz(Pavg, Wsize, task, name, channels)
     taskType  = [{'EXT', 'FLX', 'REST'}];
 %     timePeriod = [{'Fixation' , 'Task Cue', 'Tast Exct'}];
-
-        channels(13) = {'T9'};
-        channels(19) = {'T10'};
+% 
+%         channels(13) = {'T9'};
+%         channels(19) = {'T10'};
         figure
         sgtitle([name,  taskType(task)]);
 %         labCount =1;

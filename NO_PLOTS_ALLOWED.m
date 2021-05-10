@@ -241,11 +241,11 @@ function [x_DATA] = slice_n_dice(eeg, typ, pos)
     extraSamp = 0
     totalTrials = 75;
 
-    extStartIndex_PRE = find(typ == 101);
+    extStartIndex_PRE = find(typ == 100);
     extStopIndex_PRE = find(typ == 102);
-    flxStartIndex_PRE = find(typ == 301);
+    flxStartIndex_PRE = find(typ == 300);
     flxStopIndex_PRE = find(typ == 302);
-    restStartIndex_PRE = find(typ == 401);
+    restStartIndex_PRE = find(typ == 400);
     restStopIndex_PRE = find(typ == 402);
 
     startIndexs = [extStartIndex_PRE; flxStartIndex_PRE; restStartIndex_PRE];
@@ -282,7 +282,7 @@ function [Pavg] = segmentation(data, Wsize, Olap);
         for c = 1:32
             for i = 1:len
                 segment = data(         (((i-1)*hop+1):((i-1)*hop+WSize)),  c,          T);
-                Pavg(i, c, T) = 1/length(segment) * sum(      segment(1:length(segment)).^2          );
+                Pavg(i, c, T) = 1/length(segment) * sum(segment(1:length(segment)).^2);
     %             MAV(t, i, p) = mean(abs(segment));
     %             WT(t, i, p) = jfemg('ewl', segment);
             end
